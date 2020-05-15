@@ -1,6 +1,7 @@
 #include "monty.h"
 
 FILE *file_s;
+char *line_buf;
 
 /**
  * main - entry point for "monty," a .m file interpreter

@@ -1,8 +1,5 @@
 #include "monty.h"
 
-FILE *file_s;
-char *line_buf;
-
 /**
  * cleanup - uses global variables FILE *file_s and char *line_buf plus arg
  * stack_t **stack to free allocated memory before any conditional exit().

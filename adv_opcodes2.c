@@ -1,8 +1,5 @@
 #include "monty.h"
 
-FILE *file_s;
-char *line_buf;
-
 /**
  * op_pchar - prints the int at top of stack as char, followed by a new line;
  * failure if int is not a printable ASCII value, or stack is empty

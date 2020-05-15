@@ -1,8 +1,5 @@
 #include "monty.h"
 
-FILE *file_s;
-char *line_buf;
-
 /**
  * op_swap - swaps the top two elements of the stack; failure if
  * < 2 elements in stack
@@ -45,7 +42,6 @@ void op_add(stack_t **stack, unsigned int line_number)
 		(*stack)->next->n = sum;
 		*stack = (*stack)->next;
 		free(temp);
-		printf("t:add: stack at: %p, value: %i\n", (void *)*stack, (*stack)->n);
 	}
 	else
 	{

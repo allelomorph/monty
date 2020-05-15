@@ -1,8 +1,5 @@
 #include "monty.h"
 
-FILE *file_s;
-char *line_buf;
-
 /**
  * op_push - pushes an element to the stack; failure if second token from
  * iterpreter is not an int value

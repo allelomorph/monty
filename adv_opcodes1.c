@@ -1,8 +1,5 @@
 #include "monty.h"
 
-FILE *file_s;
-char *line_buf;
-
 /**
  * op_sub - subtracts the top element of the stack from the second top
  * element of the stack; failure if < 2 elements in list
