@@ -1,6 +1,37 @@
 #include "monty.h"
 
 /**
+ * atoi_filter - checks string to see if it represents a valid integer,
+ * --note: atoi accommodates leading zeroes on negative numbers, and trailing
+ * non-digit chars, both of which are omitted here.
+ * @str: string to be checked for compatibility with atoi
+ * Return: 0 on valid input, 1 on failure. exit() call made in calling function
+ * op_push()
+ */
+int atoi_filter(char *str)
+{
+	int i;
+
+	if (!str || str[0] == '\0')
+		return (1);
+
+	for (i = 0; str[i]; i++)
+	{
+		if (i == 0)
+		{
+			if (str[i] != '-' &&
+			    !(str[i] >= 0 + '0' && str[i] <= 9 + '0'))
+			{
+				return (1);
+			}
+		}
+		else if (!(str[i] >= 0 + '0' && str[i] <= 9 + '0'))
+			return (1);
+	}
+	return (0);
+}
+
+/**
  * op_push - pushes an element to the stack; failure if second token from
  * iterpreter is not an int value
  * @stack: first element of a doubly linked LIFO list of integers
@@ -9,28 +40,19 @@
 void op_push(stack_t **stack, unsigned int line_number)
 {
 	char *push_n = NULL;
-	long int value = 0;
+	int value = 0;
 	stack_t *TOS = NULL;
 
 	push_n = strtok(NULL, " ");
-	if (!push_n)
+	if (atoi_filter(push_n))
 	{
 		fprintf(stderr, "L%u: usage: push integer\n",
 			line_number);
 		cleanup(stack);
 		exit(EXIT_FAILURE);
 	}
-	value = strtol(push_n, NULL, 10);
-	if (!value)
-	{
-		if (push_n[0] != '0') /* user didn't enter '0', strtol error */
-		{
-			fprintf(stderr, "L%u: usage: push integer\n",
-				line_number);
-			cleanup(stack);
-			exit(EXIT_FAILURE);
-		}
-	}
+	value = atoi(push_n);
+
 	TOS = malloc(sizeof(stack_t));
 	if (!TOS)
 	{

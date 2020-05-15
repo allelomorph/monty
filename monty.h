@@ -47,6 +47,7 @@ char *get_line(FILE *file, stack_t *stack);
 void parse_loop(FILE *file);
 
 /* opcodes1.c */
+int atoi_filter(char *str);
 void op_push(stack_t **stack, unsigned int line_number);
 void op_pall(stack_t **stack, unsigned int line_number);
 void op_pint(stack_t **stack, unsigned int line_number);
