@@ -126,7 +126,6 @@ void parse_loop(FILE *file)
 		opcode = strtok(uncomment, " ");
 		if (line[0] == '\0' || !opcode)
 		{
-			printf("t:matches empty string\n");
 			free(line_buf);
 			continue;
 		}
