@@ -70,7 +70,7 @@ void op_rotl(stack_t **stack, unsigned int line_number)
 
 	(void)line_number;
 
-	if ((*stack)->next)
+	if (*stack && (*stack)->next)
 	{
 		tail = *stack;
 		*stack = (*stack)->next;
@@ -94,7 +94,7 @@ void op_rotr(stack_t **stack, unsigned int line_number)
 
 	(void)line_number;
 
-	if ((*stack)->next)
+	if (*stack && (*stack)->next)
 	{
 		temp = *stack;
 		while (temp->next)
