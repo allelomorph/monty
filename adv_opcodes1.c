@@ -1,9 +1,9 @@
 #include "monty.h"
 
 /**
- * op_sub - subtracts the top element of the stack from the second top
- * element of the stack; failure if < 2 elements in list
- * @stack: first element of a doubly linked LIFO list of integers
+ * op_sub - subtracts the top element of the list from the second top
+ * element of the list; failure if < 2 elements in list
+ * @stack: first element of a doubly linked list of integers
  * @line_number: line of monty text file currently seen by interpreter
  */
 void op_sub(stack_t **stack, unsigned int line_number)
@@ -28,9 +28,9 @@ void op_sub(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * op_div - divides the second top element of the stack by the top element
- * of the stack; failure if < 2 elements in stack, or top element is 0
- * @stack: first element of a doubly linked LIFO list of integers
+ * op_div - divides the second top element of the list by the top element
+ * of the stack; failure if < 2 elements in list, or top element is 0
+ * @stack: first element of a doubly linked list of integers
  * @line_number: line of monty text file currently seen by interpreter
  */
 void op_div(stack_t **stack, unsigned int line_number)
@@ -64,9 +64,9 @@ void op_div(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * op_mul - multiplies the second top element of the stack by the top element
- * of the stack; failure if < 2 elements in stack
- * @stack: first element of a doubly linked LIFO list of integers
+ * op_mul - multiplies the second top element of the list by the top element
+ * of the list; failure if < 2 elements in list
+ * @stack: first element of a doubly linked list of integers
  * @line_number: line of monty text file currently seen by interpreter
  */
 void op_mul(stack_t **stack, unsigned int line_number)
@@ -91,9 +91,9 @@ void op_mul(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * op_mod - finds modulo of the second top element of the stack divided by the
- * top element; failure if < 2 elements in stack, or top element is 0
- * @stack: first element of a doubly linked LIFO list of integers
+ * op_mod - finds modulo of the second top element of the list divided by the
+ * top element; failure if < 2 elements in list, or top element is 0
+ * @stack: first element of a doubly linked list of integers
  * @line_number: line of monty text file currently seen by interpreter
  */
 void op_mod(stack_t **stack, unsigned int line_number)

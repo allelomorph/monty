@@ -1,9 +1,9 @@
 #include "monty.h"
 
 /**
- * op_pchar - prints the int at top of stack as char, followed by a new line;
- * failure if int is not a printable ASCII value, or stack is empty
- * @stack: first element of a doubly linked LIFO list of integers
+ * op_pchar - prints the int at top of list as char, followed by a new line;
+ * failure if int is not a printable ASCII value, or list is empty
+ * @stack: first element of a doubly linked list of integers
  * @line_number: line of monty text file currently seen by interpreter
  */
 void op_pchar(stack_t **stack, unsigned int line_number)
@@ -11,7 +11,6 @@ void op_pchar(stack_t **stack, unsigned int line_number)
 	if (*stack)
 	{
 		if ((*stack)->n >= ' ' && (*stack)->n <= '~')
-/*		    || (*stack)->n == '\n') */
 		{
 			printf("%c\n", (*stack)->n);
 		}
@@ -33,10 +32,10 @@ void op_pchar(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * op_pstr - prints the int values in the stack, starting at the top, as chars,
- * followed by a new line; ends if stack is empty, or when int is not a
+ * op_pstr - prints the int values in the list, starting at the top, as chars,
+ * followed by a new line; ends if list is empty, or when int is not a
  * printable ASCII value
- * @stack: first element of a doubly linked LIFO list of integers
+ * @stack: first element of a doubly linked list of integers
  * @line_number: line of monty text file currently seen by interpreter
  */
 void op_pstr(stack_t **stack, unsigned int line_number)
@@ -49,7 +48,6 @@ void op_pstr(stack_t **stack, unsigned int line_number)
 	{
 		if (temp->n == '\0')
 			break;
-/*		    || temp->n == '\n') */
 		if (temp->n >= ' ' && temp->n <= '~')
 			putchar(temp->n);
 		else
@@ -60,8 +58,8 @@ void op_pstr(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * op_rotl - rotates top element of stack to bottom of stack, 2nd becomes top
- * @stack: first element of a doubly linked LIFO list of integers
+ * op_rotl - rotates top element of list to bottom of list, 2nd becomes top
+ * @stack: first element of a doubly linked list of integers
  * @line_number: line of monty text file currently seen by interpreter
  */
 void op_rotl(stack_t **stack, unsigned int line_number)
@@ -84,8 +82,8 @@ void op_rotl(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * op_rotr - rotates bottom element of stack to top of stack
- * @stack: first element of a doubly linked LIFO list of integers
+ * op_rotr - rotates bottom element of list to top of list
+ * @stack: first element of a doubly linked list of integers
  * @line_number: line of monty text file currently seen by interpreter
  */
 void op_rotr(stack_t **stack, unsigned int line_number)

@@ -2,6 +2,7 @@
 
 FILE *file_s;
 char *line_buf;
+int is_queue;
 
 /**
  * main - entry point for "monty," a .m file interpreter

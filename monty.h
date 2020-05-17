@@ -8,6 +8,7 @@
 
 extern FILE *file_s;
 extern char *line_buf;
+extern int is_queue;
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -47,7 +48,7 @@ char *get_line(FILE *file, stack_t *stack);
 void parse_loop(FILE *file);
 
 /* opcodes1.c */
-int atoi_filter(char *str);
+void atoi_filter(char *str, stack_t **stack, unsigned int line_number);
 void op_push(stack_t **stack, unsigned int line_number);
 void op_pall(stack_t **stack, unsigned int line_number);
 void op_pint(stack_t **stack, unsigned int line_number);
@@ -69,5 +70,9 @@ void op_pchar(stack_t **stack, unsigned int line_number);
 void op_pstr(stack_t **stack, unsigned int line_number);
 void op_rotl(stack_t **stack, unsigned int line_number);
 void op_rotr(stack_t **stack, unsigned int line_number);
+
+/* adv_opcodes3.c */
+void op_stack(stack_t **stack, unsigned int line_number);
+void op_queue(stack_t **stack, unsigned int line_number);
 
 #endif /* MONTY_H */

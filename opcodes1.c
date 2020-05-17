@@ -1,19 +1,23 @@
 #include "monty.h"
 
 /**
- * atoi_filter - checks string to see if it represents a valid integer,
+ * atoi_filter - checks string to see if it represents a valid integer.
  * --note: atoi accommodates leading zeroes on negative numbers, and trailing
  * non-digit chars, both of which are omitted here.
  * @str: string to be checked for compatibility with atoi
- * Return: 0 on valid input, 1 on failure. exit() call made in calling function
- * op_push()
+ * @stack: first element of a doubly linked list of integers
+ * @line_number: line of monty text file currently seen by interpreter
  */
-int atoi_filter(char *str)
+void atoi_filter(char *str, stack_t **stack, unsigned int line_number)
 {
 	int i;
 
 	if (!str || str[0] == '\0')
-		return (1);
+	{
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		cleanup(stack);
+		exit(EXIT_FAILURE);
+	}
 
 	for (i = 0; str[i]; i++)
 	{
@@ -22,59 +26,74 @@ int atoi_filter(char *str)
 			if (str[i] != '-' &&
 			    !(str[i] >= 0 + '0' && str[i] <= 9 + '0'))
 			{
-				return (1);
+				fprintf(stderr, "L%u: usage: push integer\n",
+					line_number);
+				cleanup(stack);
+				exit(EXIT_FAILURE);
 			}
 		}
 		else if (!(str[i] >= 0 + '0' && str[i] <= 9 + '0'))
-			return (1);
+		{
+			fprintf(stderr, "L%u: usage: push integer\n",
+				line_number);
+			cleanup(stack);
+			exit(EXIT_FAILURE);
+		}
 	}
-	return (0);
 }
 
 /**
- * op_push - pushes an element to the stack; failure if second token from
- * iterpreter is not an int value
- * @stack: first element of a doubly linked LIFO list of integers
+ * op_push - pushes an element to the top if stack, bottom if queue;
+ * failure if second token from iterpreter is not an int value
+ * @stack: first element of a doubly linked list of integers
  * @line_number: line of monty text file currently seen by interpreter
  */
 void op_push(stack_t **stack, unsigned int line_number)
 {
 	char *push_n = NULL;
 	int value = 0;
-	stack_t *TOS = NULL;
+	stack_t *new = NULL, *temp = *stack;
 
 	push_n = strtok(NULL, " ");
-	if (atoi_filter(push_n))
-	{
-		fprintf(stderr, "L%u: usage: push integer\n",
-			line_number);
-		cleanup(stack);
-		exit(EXIT_FAILURE);
-	}
+	atoi_filter(push_n, stack, line_number);
 	value = atoi(push_n);
 
-	TOS = malloc(sizeof(stack_t));
-	if (!TOS)
+	new = malloc(sizeof(stack_t));
+	if (!new)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		cleanup(stack);
 		exit(EXIT_FAILURE);
 	}
+
+	new->n = value;
+	if (is_queue)
+	{
+		if (*stack)
+		{
+			while (temp->next)
+				temp = temp->next;
+			temp->next = new;
+		}
+		else
+			*stack = new;
+		new->prev = temp;
+		new->next = NULL;
+	}
 	else
 	{
 		if (*stack)
-			(*stack)->prev = TOS;
-		TOS->n = value;
-		TOS->prev = NULL;
-		TOS->next = *stack;
-		*stack = TOS;
+			(*stack)->prev = new;
+		new->prev = NULL;
+		new->next = *stack;
+		*stack = new;
 	}
 }
 
 /**
- * op_pall - prints all int values in the stack, top to bottom, each followed
+ * op_pall - prints all int values in the list, top to bottom, each followed
  * by a newline
- * @stack: first element of a doubly linked LIFO list of integers
+ * @stack: first element of a doubly linked list of integers
  * @line_number: line of monty text file currently seen by interpreter
  */
 void op_pall(stack_t **stack, unsigned int line_number)
@@ -91,8 +110,8 @@ void op_pall(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * op_pint - prints int value at top of stack; failure if stack is empty
- * @stack: first element of a doubly linked LIFO list of integers
+ * op_pint - prints int value at top of list; failure if list is empty
+ * @stack: first element of a doubly linked list of integers
  * @line_number: line of monty text file currently seen by interpreter
  */
 void op_pint(stack_t **stack, unsigned int line_number)
@@ -111,9 +130,9 @@ void op_pint(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * op_pop - removes top element of stack, if stack > 1 elements, second element
- * becomes top of stack; failure if stack is empty
- * @stack: first element of a doubly linked LIFO list of integers
+ * op_pop - removes top element of stack, if list > 1 elements, second element
+ * becomes top of stack; failure if list is empty
+ * @stack: first element of a doubly linked list of integers
  * @line_number: line of monty text file currently seen by interpreter
  */
 void op_pop(stack_t **stack, unsigned int line_number)

@@ -47,6 +47,8 @@ int opcode_select(char *opcode, stack_t **stack, unsigned int line_number)
 		{"pstr", (*op_pstr)},
 		{"rotl", (*op_rotl)},
 		{"rotr", (*op_rotr)},
+		{"stack", (*op_stack)},
+		{"queue", (*op_queue)},
 		{NULL, NULL}
 	};
 
@@ -113,6 +115,7 @@ void parse_loop(FILE *file)
 	unsigned int line_number = 0;
 	stack_t *stack = NULL;
 
+	is_queue = 0;
 	do {
 		line_number++;
 		line = get_line(file, stack);
